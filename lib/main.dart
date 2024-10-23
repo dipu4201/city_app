@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:get/get.dart';
-import 'city_provider.dart';
-import 'Screen/splash_screen.dart'; // Ensure this imports the correct SplashScreen
+import 'package:rajshai_town/cart_provider.dart';
+import 'Screen/splash_screen.dart';
 
 void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => CityProvider()),
+        ChangeNotifierProvider(create: (_) => CartProvider()),
       ],
       child: const MyApp(),
     ),
@@ -20,11 +20,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp( // Use GetMaterialApp for GetX routing
+    return GetMaterialApp(
       title: 'My City App',
       theme: ThemeData(primarySwatch: Colors.blue),
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(), // Use the splash screen as the initial screen
+      home: const SplashScreen(),
     );
   }
 }

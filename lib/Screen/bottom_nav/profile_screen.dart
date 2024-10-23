@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:rajshai_town/profile_all/payment_methods_page.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -13,6 +14,8 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   File? _image; // Variable to store the uploaded image
   final ImagePicker _picker = ImagePicker();
+  final TextEditingController _nameController = TextEditingController(text: 'Delower Hossain');
+  final TextEditingController _emailController = TextEditingController(text: 'delowerdipu420@gmail.com');
 
   // Function to pick an image from the gallery
   Future<void> _pickImage() async {
@@ -39,11 +42,56 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  // Function to open edit profile dialog
+  void _showEditProfileDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Edit Profile'),
+          content: SingleChildScrollView(
+            child: Column(
+              children: [
+                TextField(
+                  controller: _nameController,
+                  decoration: const InputDecoration(labelText: 'Name'),
+                ),
+                TextField(
+                  controller: _emailController,
+                  decoration: const InputDecoration(labelText: 'Email'),
+                  keyboardType: TextInputType.emailAddress,
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  // Here you can handle additional logic if needed
+                });
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('Save'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.teal,
+        foregroundColor: Colors.white,
         elevation: 0,
         title: const Text(
           'Profile',
@@ -64,7 +112,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              // Profile Picture Section
               Center(
                 child: Stack(
                   alignment: Alignment.bottomRight,
@@ -107,17 +154,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               const SizedBox(height: 20),
               // User Information
-              const Text(
-                'Delower Hossain',
-                style: TextStyle(
+              Text(
+                _nameController.text,
+                style: const TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 5),
-              const Text(
-                'delowerdipu420@gmail.com',
-                style: TextStyle(fontSize: 16, color: Colors.grey),
+              Text(
+                _emailController.text,
+                style: const TextStyle(fontSize: 16, color: Colors.grey),
               ),
               const SizedBox(height: 30),
               // Action Buttons
@@ -128,9 +175,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     icon: Icons.edit,
                     label: 'Edit Profile',
                     color: Colors.teal,
-                    onTap: () {
-                      // Edit profile functionality
-                    },
+                    onTap: _showEditProfileDialog,
                   ),
                   const SizedBox(width: 16),
                   _actionButton(
@@ -138,7 +183,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     label: 'Logout',
                     color: Colors.red,
                     onTap: () {
-                      // Logout functionality
+
                     },
                   ),
                 ],
@@ -151,28 +196,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 title: 'Privacy Settings',
                 icon: Icons.privacy_tip,
                 onTap: () {
-                  // Navigate to privacy settings
+
                 },
               ),
               _optionTile(
                 title: 'Notification Settings',
                 icon: Icons.notifications,
                 onTap: () {
-                  // Navigate to notification settings
+
                 },
               ),
               _optionTile(
                 title: 'Order History',
                 icon: Icons.history,
                 onTap: () {
-                  // Navigate to order history
+
                 },
               ),
               _optionTile(
                 title: 'Payment Methods',
                 icon: Icons.payment,
                 onTap: () {
-                  // Navigate to payment methods
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PaymentMethodsPage(),
+                    ),
+                  );
                 },
               ),
               const SizedBox(height: 30),
@@ -182,14 +232,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 title: 'FAQs',
                 icon: Icons.help_outline,
                 onTap: () {
-                  // Navigate to FAQs
+
                 },
               ),
               _optionTile(
                 title: 'Contact Support',
                 icon: Icons.phone_in_talk,
                 onTap: () {
-                  // Navigate to support
+
                 },
               ),
             ],
@@ -223,7 +273,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  // Helper function for section headers
+
   Widget _sectionHeader(String title) {
     return Align(
       alignment: Alignment.centerLeft,
@@ -237,7 +287,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  // Helper function for list tiles with icons
+
   Widget _optionTile({
     required String title,
     required IconData icon,

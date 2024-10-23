@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget otherCategoryCard(IconData icon, String title, Color color, VoidCallback onTap) {
+Widget otherCategoryCard(String imagePath, String title, Color color, VoidCallback onTap) {
   return Card(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(12),
@@ -12,12 +12,25 @@ Widget otherCategoryCard(IconData icon, String title, Color color, VoidCallback 
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, size: 32, color: color), // Reduced size
-          const SizedBox(height: 8), // Reduced spacing
+          // Display the image with error handling
+          Image.asset(
+            imagePath,
+            width: 80,
+            height: 80,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) {
+              return const Icon(
+                Icons.image_not_supported,
+                size: 40,
+                color: Colors.grey,
+              );
+            },
+          ),
+          const SizedBox(height: 8),
           Text(
             title,
             style: TextStyle(
-              fontSize: 14, // Reduced font size
+              fontSize: 14, // Adjusted font size
               fontWeight: FontWeight.w600,
               color: color,
             ),

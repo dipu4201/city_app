@@ -97,17 +97,17 @@ class _GuidelinePageState extends State<GuidelinePage> {
                         _guidelines[index],
                         style: const TextStyle(fontSize: 16),
                       ),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.delete, color: Colors.red),
-                        onPressed: () {
-                          setState(() {
-                            _guidelines.removeAt(index);
-                          });
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text("নির্দেশনা মুছে ফেলা হয়েছে")),
-                          );
-                        },
-                      ),
+                      // trailing: IconButton(
+                      //   icon: const Icon(Icons.delete, color: Colors.red),
+                      //   onPressed: () {
+                      //     setState(() {
+                      //       _guidelines.removeAt(index);
+                      //     });
+                      //     ScaffoldMessenger.of(context).showSnackBar(
+                      //       const SnackBar(content: Text("নির্দেশনা মুছে ফেলা হয়েছে")),
+                      //     );
+                      //   },
+                      // ),
                     ),
                   );
                 },

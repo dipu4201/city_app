@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import '../home_screen.dart'; // Ensure path is correct
+import 'package:rajshai_town/Screen/bottom_nav/cart_screen.dart';
+import '../home_screen.dart';
 import 'map_screen.dart';
 import 'profile_screen.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
-  final int currentIndex; // Track the initial tab index
+  final int currentIndex;
 
   const CustomBottomNavBar({super.key, this.currentIndex = 0});
 
@@ -13,39 +14,40 @@ class CustomBottomNavBar extends StatefulWidget {
 }
 
 class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
-  late int _selectedIndex; // Current selected index
+  late int _selectedIndex;
 
-  // List of pages for each tab
   final List<Widget> _pages = [
-    const HomeScreen(), // Home page
-    const MapScreen(),  // Map page
-    const ProfileScreen(), // Profile page
+    const HomeScreen(),
+    const MapScreen(),
+    const CartScreen(),
+    const ProfileScreen(),
   ];
 
   @override
   void initState() {
     super.initState();
-    _selectedIndex = widget.currentIndex; // Initialize with passed index
+    _selectedIndex = widget.currentIndex;
   }
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index; // Update selected index on tap
+      _selectedIndex = index;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_selectedIndex], // Display the selected page
+      body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.teal,
         unselectedItemColor: Colors.grey,
-        onTap: _onItemTapped, // Handle tab change
+        onTap: _onItemTapped,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.map), label: 'Map'),
+          BottomNavigationBarItem(icon: Icon(Icons.location_on_rounded), label: 'Map'),
+          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: 'Cart'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
       ),

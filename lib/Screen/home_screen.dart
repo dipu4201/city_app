@@ -87,10 +87,10 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
             mainAxisSpacing: 12,
             children: [
               otherCategoryCard(
-                Icons.map,
+                'assets/logo/tourist1.png',
                 "Tourist Attractions",
                 Colors.black,
-                    () {
+                () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -99,10 +99,10 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
                 },
               ),
               otherCategoryCard(
-                Icons.event,
+                'assets/logo/event.png',
                 "Events & Festivals",
                 Colors.black,
-                    () {
+                () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -111,10 +111,10 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
                 },
               ),
               otherCategoryCard(
-                Icons.school,
+                'assets/logo/study.png',
                 "Study",
                 Colors.black,
-                    () {
+                () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => StudyPage()),
@@ -122,10 +122,10 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
                 },
               ),
               otherCategoryCard(
-                Icons.groups,
+                'assets/logo/community.png',
                 "Our Community",
                 Colors.black,
-                    () {
+                () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => CommunityPage()),
@@ -191,7 +191,7 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
   Widget categorySection() {
     return Container(
       height: 100,
-      color: Colors.white, // Background matching parent widgets
+      color: Colors.white,
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: ListView(
         scrollDirection: Axis.horizontal,
@@ -214,11 +214,13 @@ class _CategorySectionDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   double get minExtent => 100;
+
   @override
   double get maxExtent => 100;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
       color: Colors.white,
       child: child,
@@ -230,4 +232,3 @@ class _CategorySectionDelegate extends SliverPersistentHeaderDelegate {
     return oldDelegate.child != child;
   }
 }
-
