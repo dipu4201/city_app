@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rajshai_town/widget/custom_appbar.dart';
 
 class GuidelinePage extends StatefulWidget {
   @override
@@ -67,11 +68,7 @@ class _GuidelinePageState extends State<GuidelinePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Guideline"),
-        backgroundColor: Colors.teal,
-        foregroundColor: Colors.white,
-      ),
+      appBar: const CustomAppBar(),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:marquee/marquee.dart'; // Import the marquee package
+import 'package:marquee/marquee.dart';
+import 'package:rajshai_town/widget/custom_appbar.dart'; // Import the marquee package
 
 class TouristAttractionsPage extends StatelessWidget {
   final List<Map<String, dynamic>> touristSpots = [
@@ -38,11 +39,7 @@ class TouristAttractionsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Tourist Attractions"),
-        backgroundColor: Colors.teal,
-        foregroundColor: Colors.white,
-      ),
+      appBar: const CustomAppBar(),
       body: Column(
         children: [
           // Scrolling Announcement Banner

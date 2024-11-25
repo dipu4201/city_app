@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rajshai_town/widget/custom_appbar.dart';
 
 class DiningPage extends StatelessWidget {
 
@@ -10,20 +11,7 @@ class DiningPage extends StatelessWidget {
     _context = context;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Dining"),
-        backgroundColor: Colors.teal,
-        foregroundColor: Colors.white,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-
-              _showSnackBar('Search feature coming soon!');
-            },
-          ),
-        ],
-      ),
+      appBar: const CustomAppBar(),
       body: Column(
         children: [
           _buildHeroBanner(),

@@ -4,6 +4,7 @@ import 'package:rajshai_town/box_category_page/events_festivals_page.dart';
 import 'package:rajshai_town/box_category_page/study_page.dart';
 import 'package:rajshai_town/box_category_page/tourist_attractions_page.dart';
 import 'package:rajshai_town/widget/category_item.dart';
+import 'package:rajshai_town/widget/custom_appbar.dart';
 import 'package:rajshai_town/widget/other_box_category.dart';
 import '../Category_page/dining_page.dart';
 import '../Category_page/guideline_page.dart';
@@ -17,12 +18,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text("Explore Rajshahi"),
-        backgroundColor: Colors.teal,
-        foregroundColor: Colors.white,
-      ),
+      appBar: const CustomAppBar(),
       body: const HomeScreenContent(),
       backgroundColor: Colors.white,
     );

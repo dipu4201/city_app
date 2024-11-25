@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:rajshai_town/widget/custom_appbar.dart';
 
 class StudyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Study Opportunities"),
-        backgroundColor: Colors.teal,
-        foregroundColor: Colors.white,
-      ),
+      appBar: const CustomAppBar(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView(
@@ -31,7 +28,6 @@ class StudyPage extends StatelessWidget {
               description: "Learn English and other languages to enhance your skills.",
               imagePath: "assets/images/study/ict.jpg",
             ),
-            // Add more coaching cards as needed
           ],
         ),
       ),

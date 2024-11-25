@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rajshai_town/cart_provider.dart';
+import 'package:rajshai_town/widget/custom_appbar.dart';
 
 class HotelDetailPage extends StatelessWidget {
   final Map<String, dynamic> hotel;
@@ -12,11 +13,7 @@ class HotelDetailPage extends StatelessWidget {
     final cartProvider = Provider.of<CartProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(hotel['name'], style: const TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: Colors.teal,
-        foregroundColor: Colors.white,
-      ),
+      appBar: const CustomAppBar(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,23 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:rajshai_town/widget/custom_appbar.dart';
 
 class ShoppingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Shopping"),
-        backgroundColor: Colors.teal,
-        foregroundColor: Colors.white,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-              // Safe usage of context inside onPressed
-              _showSnackBar(context, 'Search Coming Soon');
-            },
-          ),
-        ],
-      ),
+      appBar: const CustomAppBar(),
       body: Column(
         children: [
           _buildPromotionalSlider(),

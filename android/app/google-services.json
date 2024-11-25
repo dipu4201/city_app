@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "848779875799",
+    "project_id": "rajshahi-5ecf5",
+    "storage_bucket": "rajshahi-5ecf5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:848779875799:android:60dcd4599bd24dfd2be792",
+        "android_client_info": {
+          "package_name": "com.example.rajshai_town"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCF3CtB-nhX7JcZP5vR39i6kNMfplxrmLU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

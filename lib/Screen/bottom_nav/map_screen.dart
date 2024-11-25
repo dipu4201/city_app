@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rajshai_town/widget/custom_appbar.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class MapScreen extends StatefulWidget {
@@ -12,12 +13,7 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Map'),
-        backgroundColor: Colors.teal,
-        centerTitle: true,
-        foregroundColor: Colors.white,
-      ),
+      appBar: const CustomAppBar(),
     );
   }
 }

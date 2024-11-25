@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rajshai_town/hotel/hotel_details_page.dart';
+import 'package:rajshai_town/widget/custom_appbar.dart';
 
 class HotelsPage extends StatefulWidget {
   @override
@@ -48,11 +49,7 @@ class _HotelsPageState extends State<HotelsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Hotels in Rajshahi City"),
-        backgroundColor: Colors.teal,
-        foregroundColor: Colors.white,
-      ),
+      appBar: const CustomAppBar(),
       body: Column(
         children: [
           Padding(

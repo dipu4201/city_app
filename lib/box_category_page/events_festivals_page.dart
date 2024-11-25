@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rajshai_town/widget/custom_appbar.dart';
 
 class EventsFestivalsPage extends StatefulWidget {
   @override
@@ -103,26 +104,31 @@ class _EventsFestivalsPageState extends State<EventsFestivalsPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Events & Festivals"),
-        backgroundColor: Colors.teal,
-        foregroundColor: Colors.white,
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: const [
-            Tab(text: 'Upcoming'),
-            Tab(text: 'Ongoing'),
-            Tab(text: 'Past'),
-          ],
-          indicatorColor: Colors.white,
-        ),
-      ),
-      body: TabBarView(
-        controller: _tabController,
+      appBar: const CustomAppBar(),
+      body: Column(
         children: [
-          _buildEventList(upcomingEvents),
-          _buildEventList(ongoingEvents),
-          _buildEventList(pastEvents),
+          Container(
+            color: Colors.grey,
+            child: TabBar(
+              controller: _tabController,
+              tabs: const [
+                Tab(text: 'Upcoming'),
+                Tab(text: 'Ongoing'),
+                Tab(text: 'Past'),
+              ],
+              indicatorColor: Colors.white,
+            ),
+          ),
+          Expanded(
+            child: TabBarView(
+              controller: _tabController,
+              children: [
+                _buildEventList(upcomingEvents),
+                _buildEventList(ongoingEvents),
+                _buildEventList(pastEvents),
+              ],
+            ),
+          ),
         ],
       ),
     );

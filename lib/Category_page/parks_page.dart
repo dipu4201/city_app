@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rajshai_town/widget/custom_appbar.dart';
 
 class ParksPage extends StatelessWidget {
   final List<Map<String, String>> parks = [
@@ -22,11 +23,7 @@ class ParksPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Parks in Rajshahi City"),
-        backgroundColor: Colors.teal,
-        foregroundColor: Colors.white,
-      ),
+      appBar: const CustomAppBar(),
       body: ListView.builder(
         itemCount: parks.length,
         itemBuilder: (context, index) {
