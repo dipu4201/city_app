@@ -70,6 +70,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '848779875799',
     projectId: 'rajshahi-5ecf5',
     storageBucket: 'rajshahi-5ecf5.firebasestorage.app',
+    androidClientId: '848779875799-vg7l4che98mgl356hg3gjgg91i6snl14.apps.googleusercontent.com',
+    iosClientId: '848779875799-t36p867gdtv9gnlig2grpck434e3n6ed.apps.googleusercontent.com',
     iosBundleId: 'com.example.rajshaiTown',
   );
+
 }

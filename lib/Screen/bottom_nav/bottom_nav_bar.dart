@@ -20,7 +20,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
     const HomeScreen(),
     const MapScreen(),
     const CartScreen(),
-    const ProfileScreen(),
+     ProfileScreen(),
   ];
 
   @override

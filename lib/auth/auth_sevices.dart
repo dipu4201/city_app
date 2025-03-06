@@ -1,143 +1,63 @@
-import 'package:flutter/foundation.dart';
-import 'package:get/get.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
-  final SupabaseClient _supabase = Supabase.instance.client;
-  final RegExp _emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  // Sign up with email and password, then save profile data to Supabase.
-  Future<void> signUpWithEmail(String email, String password, String name) async {
+  // Listen to auth changes
+  Stream<User?> get userStream => _auth.authStateChanges();
+
+  // Sign in with Google
+  Future<User?> signInWithGoogle() async {
     try {
-      if (!_emailRegex.hasMatch(email)) throw 'Invalid email format';
-      if (password.length < 6) throw 'Password must be at least 6 characters';
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) return null;
 
-      final AuthResponse response = await _supabase.auth.signUp(
-        email: email,
-        password: password,
-        data: {'name': name},
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
       );
-
-      if (response.user == null) throw 'Registration failed';
-
-      // Save the user profile to Supabase.
-      await _supabase.from('profiles').upsert({
-        'id': response.user!.id,
-        'email': email,
-        'name': name,
-        'created_at': DateTime.now().toIso8601String(),
-      });
-
-      Get.offAllNamed('/home');
-      Get.snackbar('Success', 'Account created successfully!');
-    } on AuthException catch (e) {
-      Get.snackbar('Auth Error', e.message);
+      UserCredential result = await _auth.signInWithCredential(credential);
+      return result.user;
     } catch (e) {
-      Get.snackbar('Error', e.toString());
+      print(e);
+      return null;
     }
   }
 
-  // Log in with email and password.
-  Future<void> loginWithEmail(String email, String password) async {
+  // Sign in with Email and Password
+  Future<User?> signInWithEmail(String email, String password) async {
     try {
-      final AuthResponse response = await _supabase.auth.signInWithPassword(
-        email: email,
-        password: password,
+      UserCredential result = await _auth.signInWithEmailAndPassword(
+          email: email,
+          password: password
       );
-
-      if (response.user == null) throw 'Login failed';
-      Get.offAllNamed('/home');
-    } on AuthException catch (e) {
-      Get.snackbar('Auth Error', e.message);
+      return result.user;
     } catch (e) {
-      Get.snackbar('Error', e.toString());
+      print(e);
+      return null;
     }
   }
 
-  // Sign in with Google. On success, upsert a profile record.
-  Future<void> signInWithGoogle() async {
+  // Register with Email and Password
+  Future<User?> registerWithEmail(String email, String password) async {
     try {
-      final AuthResponse response = (await _supabase.auth.signInWithOAuth(
-        AuthProvider.google,
-        redirectTo: kIsWeb
-            ? 'https://dyiqtulauqrxgjgtqzyl.supabase.co/auth/v1/callback'
-            : 'com.rajshaitown://login-callback',
-      )) as AuthResponse;
-
-      final user = response.user;
-      if (user != null) {
-        // Upsert the user's profile data.
-        await _supabase.from('profiles').upsert({
-          'id': user.id,
-          'email': user.email,
-          // If available from Google, save the full name; otherwise default to an empty string.
-          'name': user.userMetadata?['full_name'] ?? '',
-          'created_at': DateTime.now().toIso8601String(),
-        });
-      }
-    } on AuthException catch (e) {
-      Get.snackbar('Auth Error', e.message);
+      UserCredential result = await _auth.createUserWithEmailAndPassword(
+          email: email,
+          password: password
+      );
+      return result.user;
     } catch (e) {
-      Get.snackbar('Error', 'Failed to sign in with Google: ${e.toString()}');
+      print(e);
+      return null;
     }
   }
 
-  // Retrieve the user's profile from Supabase.
-  Future<Map<String, dynamic>> getProfile() async {
-    try {
-      final user = _supabase.auth.currentUser;
-      if (user == null) throw 'Not logged in';
-      final response = await _supabase
-          .from('profiles')
-          .select()
-          .eq('id', user.id)
-          .single();
-      return response.data as Map<String, dynamic>;
-    } on PostgrestException catch (e) {
-      throw 'Database error: ${e.message}';
-    } catch (e) {
-      throw 'Failed to fetch profile: ${e.toString()}';
-    }
-  }
-
-  // Update the user's profile data.
-  Future<void> updateProfile({
-    required String name,
-    required String email,
-    String? avatarUrl,
-  }) async {
-    try {
-      final user = _supabase.auth.currentUser;
-      if (user == null) throw 'Not logged in';
-
-      // Update email via Supabase Auth if changed.
-      if (email != user.email) {
-        await _supabase.auth.updateUser(UserAttributes(email: email));
-      }
-
-      // Upsert the updated profile data.
-      await _supabase.from('profiles').upsert({
-        'id': user.id,
-        'name': name,
-        'email': email,
-        'avatar_url': avatarUrl,
-      });
-
-      Get.snackbar('Success', 'Profile updated!');
-    } on AuthException catch (e) {
-      Get.snackbar('Auth Error', e.message);
-    } on PostgrestException catch (e) {
-      Get.snackbar('Database Error', e.message);
-    }
-  }
-
-  // Sign out the user.
+  // Sign out from both Firebase and Google
   Future<void> signOut() async {
-    try {
-      await _supabase.auth.signOut();
-      Get.offAllNamed('/login');
-    } on AuthException catch (e) {
-      Get.snackbar('Logout Error', e.message);
-    }
+    await _auth.signOut();
+    await _googleSignIn.signOut();
   }
 }

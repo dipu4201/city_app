@@ -64,9 +64,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rajshai_town/Screen/bottom_nav/bottom_nav_bar.dart';
 import 'package:rajshai_town/auth/login_page.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -84,11 +84,12 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void _checkLoginState() {
     Timer(const Duration(seconds: 3), () {
-      final isLoggedIn = Supabase.instance.client.auth.currentUser != null;
-      if (isLoggedIn) {
+      // Check if a Firebase user is already logged in
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
         Get.off(() => const CustomBottomNavBar());
       } else {
-        Get.off(() => const LoginPage());
+        Get.off(() => LoginScreen());
       }
     });
   }
@@ -100,7 +101,7 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Image in a circular shape
+            // Circular image (make sure the asset exists in your assets folder)
             Container(
               height: 130,
               width: 130,

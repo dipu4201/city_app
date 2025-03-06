@@ -22,14 +22,17 @@ class _CustomAppBarState extends State<CustomAppBar> {
   void initState() {
     super.initState();
     _user = FirebaseAuth.instance.currentUser;
-    _authSubscription =
-        FirebaseAuth.instance.authStateChanges().listen((User? user) {
-          if (mounted) {
-            setState(() {
+    _authSubscription = FirebaseAuth.instance.authStateChanges().listen(
+      (User? user) {
+        if (mounted) {
+          setState(
+            () {
               _user = user;
-            });
-          }
-        });
+            },
+          );
+        }
+      },
+    );
   }
 
   @override
@@ -54,7 +57,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const ProfileScreen(),
+                  builder: (context) => ProfileScreen(),
                 ),
               ),
               child: const CircleAvatar(
@@ -101,7 +104,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
           icon: const Icon(Icons.notifications_outlined),
           color: Colors.blueGrey,
           onPressed: () {
-            // Handle notification button press
           },
         ),
         const SizedBox(width: 8),
